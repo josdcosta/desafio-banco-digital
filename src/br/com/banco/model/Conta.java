@@ -30,6 +30,7 @@ public abstract sealed class Conta implements IConta permits ContaCorrente, Cont
 
     @Override
     public void sacar(double valor) {
+        if(this.saldo < valor) return;
         saldo -= valor;
     }
 
@@ -40,6 +41,7 @@ public abstract sealed class Conta implements IConta permits ContaCorrente, Cont
 
     @Override
     public void transferir(double valor, Conta contaDestino) {
+        if(this.saldo < valor) return;
         if(!this.titular.equals(contaDestino.titular)) {
             this.sacar(valor);
             this.sacar(valor*0.01);
